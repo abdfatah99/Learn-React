@@ -7,6 +7,7 @@ function tick(){
         <div>
             <h1>Time Now !!!</h1>
             { new Date().toLocaleTimeString() }
+            <p>selamat datang guys</p>
         </div>
     )
     ReactDOM.render(element, root)
