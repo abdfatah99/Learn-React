@@ -13,7 +13,6 @@
     },
     "scripts": {
         "build": "babel src --out-dir public -w",
-        "server": "lite-server --baseDir public --c bs-config.json",
-        "start": "yarn build & yarn serve"
+        "server": "lite-server --baseDir public --c bs-config.json"
     }
 }
