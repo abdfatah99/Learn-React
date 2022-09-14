@@ -1,4 +1,4 @@
-# 001-style-react-element-inlint
+# 001-style-react-element-inline
 
 Normally when you code with HTML using css you can write the inline css, like:  
 
