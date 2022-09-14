@@ -1,7 +1,5 @@
 const root = document.querySelector("#root");
 
-console.log("hello world")
-
 function tick(){
     const element = (
         <div>
