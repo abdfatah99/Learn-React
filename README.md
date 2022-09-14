@@ -91,3 +91,5 @@ to get it right **you have to make the inline style becomes Javascript Object**.
 </script>
 ```
 </details>
+
+In production, it's not good to add inline CSS style, this because it's not maintainable. To make it maintainable, you have to make external stylesheet. 
