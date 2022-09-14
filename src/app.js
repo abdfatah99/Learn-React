@@ -1,17 +1,11 @@
-const root = document.querySelector("#root")
+const root = document.querySelector("#root");
 
-console.log("hello world")
+let elementStyle = {
+    width: "200px", // you can just type 200 (number)
+    height: "200px", // you can just type 200 (number)
+    backgroundColor: "blue",
+};
 
-function tick(){
-    const element = (
-        <div>
-            <h1>Time Now !!!</h1>
-            { new Date().toLocaleTimeString() }
-        </div>
-    )
-    ReactDOM.render(element, root)
-}
+const element = <div style={elementStyle}></div>;
 
-setInterval(() => {
-    tick()
-}, 1000);
+ReactDOM.render(element, root);
