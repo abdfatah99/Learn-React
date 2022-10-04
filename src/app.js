@@ -148,4 +148,5 @@ function App() {
  */
 
 // because you are using jsx, you can directly bind the component
+// ? what does this mean
 ReactDOM.render(<App/>, root);
