@@ -1,7 +1,7 @@
 const root = document.querySelector("#root");
 
 /**
- * Making list using normal HTML list element
+ * Maing list using normal HTML list element
  * 
  * it's quite simple, you just create normal HTML list the insert it into JSX
  */
