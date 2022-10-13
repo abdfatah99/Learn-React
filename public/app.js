@@ -27,7 +27,7 @@ function App() {
   return /*#__PURE__*/React.createElement("ul", null, fruits.map(function (fruit) {
     return /*#__PURE__*/React.createElement("li", {
       key: fruit
-    }, "fruit");
+    }, fruit);
   }));
 }
 

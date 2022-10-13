@@ -42,6 +42,7 @@ function App() {
                 In the future or production, you can use like product id to
                 define the key. 
                 - each key should unique, other than that it will cause an error
+                - key used by react to identify that this element is changeable
 
                 why we use map?
 
@@ -51,7 +52,7 @@ function App() {
 
             {
                 fruits.map(function(fruit) {
-                    return <li key={fruit}>fruit</li>
+                    return <li key={fruit}>{fruit}</li>
                 })
             }
         </ul>
