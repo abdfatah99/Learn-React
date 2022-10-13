@@ -4,7 +4,7 @@ const root = document.querySelector("#root");
  * React state
  * state - data inside react component
  *       - isolated, can't accessed from another component
- *       - changeable, when you change the data, it will be
+ *       - changeable, when you change the data, it (the component) will be
  *         re-rendered 
  * 
  * then you have to create ReactComponent
