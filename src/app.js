@@ -6,10 +6,10 @@ const root = document.querySelector("#root");
 
 // function App(){
 //   function ketikadisubmit(event){
-//     // stop from submission
+//      # stop form submission
 //     event.preventDefault()
 
-//     // check if the function is run
+//      # check if the function is run
 //     console.log("the button clicked")
 
 //   }
@@ -26,20 +26,27 @@ const root = document.querySelector("#root");
 // }
 
 /**
- * How to the data from the form-input element into the console
+ * How to get data from the form-input element into the console
+ * This way below is called UNCONTROL way, because we use js vanila to
+ * manipulate (get) the data
  */
 
 function App(){
+  const namaRef = React.useRef(null)
+
   function onSubmitFunc(event){
     event.preventDefault() 
     console.log('the button is clicked')
+    console.log("namaRef:", namaRef)
+    const nama = namaRef.current.value
+    console.log("nama:", nama)
   }
 
   return (
     <form onSubmit={onSubmitFunc}>
       <div>
-        <label htmlFor='name'></label>
-        <input type="text" name='name' id='name' />
+        <label htmlFor='name'>Nama: </label>
+        <input type="text" name='name' id='name' ref={namaRef}/>
       </div>
       <button>Submit</button>
    </form>
