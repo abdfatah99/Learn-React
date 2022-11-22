@@ -15,9 +15,9 @@
   *     
   * (step - init) -> function 01
   * 1. create React component
-  *     function App(){
-  *         return <h1>React element</h1>;    
-  *     }    
+  *     -> function App(){
+  *     ->   return <h1>React element</h1>;    
+  *     -> }    
   * 
   * what we want to do is create counter app, not calculator 
   * add number when you click + plus button
@@ -25,26 +25,26 @@
   * 
   * (step - 01)
   * 1. create simple app represent value using react state
-  *     function App() {
-  *         const state = React.useState(1);
-  *         console.log(state)    
-  *         
-  *         return <h1>React Element</h1>
-  *     }
+  *     -> function App() {
+  *     ->     const state = React.useState(1);
+  *     ->     console.log(state)    
+  *     ->     
+  *     ->     return <h1>React Element</h1>
+  *     -> }
   * 
   * what does React.useState(1) mean?
   * 
   * normally when you want to create this app using normal js,
   * you just create a variable then assign a value to calculate
   * the value using function (literal method) like:
-  *     const state = 1
-  *     
-  *     function add(state) {
-  *         state += 1
-  *         return state; 
-  *     }
-  *     
-  *     function substract(state) {...}
+  *    -> const state = 1
+  *    -> 
+  *    -> function add(state) {
+  *    ->     state += 1
+  *    ->     return state; 
+  *    -> }
+  *    -> 
+  *    -> function substract(state) {...}
   * 
   * you will not do this with React, instead you'll assign the value
   * using React State.
@@ -143,8 +143,6 @@ function App() {
  * 
  * but, the code above is not general naming. The best practise code is
  * const [count, setCount] = React.useState(0); 
- * 
- * 
  */
 
 // because you are using jsx, you can directly bind the component
