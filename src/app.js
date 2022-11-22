@@ -41,8 +41,8 @@ const root = document.querySelector("#root");
  *                         or you can call immediately
  */
 
-function buttonClick(name) {
-    let name = name 
+function buttonClick(stdIndentity) {
+    let name = stdIndentity 
     alert(`congratulation, ${name} click the button`);
 }
 

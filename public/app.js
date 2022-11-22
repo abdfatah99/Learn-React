@@ -40,11 +40,12 @@ const root = document.querySelector("#root");
  *                         or you can call immediately
  */
 
-function buttonClick(name) {
-  alert("congratulation, you click the button");
+function buttonClick(stdIndentity) {
+  let name = stdIndentity;
+  alert(`congratulation, ${name} click the button`);
 }
 
 const element = /*#__PURE__*/React.createElement("button", {
-  onClick: buttonClick
+  onClick: buttonClick.bind(this, "fatah")
 }, "click Me");
 ReactDOM.render(element, root);
