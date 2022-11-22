@@ -32,7 +32,7 @@ const root = document.querySelector("#root");
  *
  *    if you console the -functionNames.bind(this, 'argument')-
  *    it will create/produce new function with that argument
- *    this keyword is used to referent the function (functionNames)
+ *    this keyword is used to reference the function (functionNames)
  * 
  * recap
  *  1. define the event name
@@ -40,7 +40,7 @@ const root = document.querySelector("#root");
  *                         or you can call immediately
  */
 
-function buttonClick() {
+function buttonClick(name) {
   alert("congratulation, you click the button");
 }
 

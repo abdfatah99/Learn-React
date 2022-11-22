@@ -33,7 +33,7 @@ const root = document.querySelector("#root");
  *
  *    if you console the -functionNames.bind(this, 'argument')-
  *    it will create/produce new function with that argument
- *    this keyword is used to referent the function (functionNames)
+ *    this keyword is used to reference the function (functionNames)
  * 
  * recap
  *  1. define the event name
@@ -41,10 +41,11 @@ const root = document.querySelector("#root");
  *                         or you can call immediately
  */
 
-function buttonClick() {
-    alert("congratulation, you click the button");
+function buttonClick(name) {
+    let name = name 
+    alert(`congratulation, ${name} click the button`);
 }
 
-const element = <button onClick={buttonClick}>click Me</button>;
+const element = <button onClick={buttonClick.bind(this, "fatah")}>click Me</button>;
 
 ReactDOM.render(element, root);
