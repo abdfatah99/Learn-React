@@ -1,7 +1,11 @@
 const root = document.querySelector("#root");
 
 /**
+
  * create react form like normal form
+
+ * Maing list using normal HTML list element
+ * it's quite simple, you just create normal HTML list the insert it into JSX
  */
 
 // function App(){
