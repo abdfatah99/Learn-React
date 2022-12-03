@@ -4,7 +4,7 @@ const root = document.querySelector("#root");
  */
 // function App(){
 //   function ketikadisubmit(event){
-//      # stop form submission
+//      # stop default html behaviour
 //     event.preventDefault()
 //      # check if the function is run
 //     console.log("the button clicked")
@@ -23,30 +23,66 @@ const root = document.querySelector("#root");
 /**
  * How to get data from the form-input element into the console
  * This way below is called UNCONTROL way, because we use js vanila to
- * manipulate (get) the data
+ * manipulate (get) the data (just reference it, actually we can use
+ * getElementById if you want to use this term )
+ */
+// function App(){
+//   const namaRef = React.useRef(null)
+//   function onSubmitFunc(event){
+//     event.preventDefault()
+//     console.log('the button is clicked')
+//     console.log("namaRef:", namaRef)
+//     const nama = namaRef.current.value
+//     console.log("nama:", nama)
+//   }
+//   return (
+//     <form onSubmit={onSubmitFunc}>
+//       <div>
+//         <label htmlFor='name'>Nama: </label>
+//         <input type="text" name='name' id='name' ref={namaRef}/>
+//       </div>
+//       <button>Submit</button>
+//    </form>
+//   )
+// }
+
+/**
+ * CONTROL WAY of form
+ *  - using state
+ *
+ * the input element is contolled by react via state
+ *
  */
 
 function App() {
-  const namaRef = React.useRef(null);
+  // create state to store the inputted value
+  const [nama, setNama] = React.useState(""); // default value is empty string
 
-  function onSubmitFunc(event) {
+  function submitForm(event) {
     event.preventDefault();
-    console.log('the button is clicked');
-    console.log("namaRef:", namaRef);
-    const nama = namaRef.current.value;
-    console.log("nama:", nama);
+    console.log(event.target);
+    console.log(`Submitted name: ${nama}`);
   }
 
-  return /*#__PURE__*/React.createElement("form", {
-    onSubmit: onSubmitFunc
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
-    htmlFor: "name"
-  }, "Nama: "), /*#__PURE__*/React.createElement("input", {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("form", {
+    onSubmit: submitForm
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: ""
+  }, "Nama"), /*#__PURE__*/React.createElement("input", {
     type: "text",
-    name: "name",
-    id: "name",
-    ref: namaRef
-  })), /*#__PURE__*/React.createElement("button", null, "Submit"));
+    name: "nama" // default nama State is empty sting, we controll the input by state
+    ,
+    value: nama,
+    onChange: function (event) {
+      // check inputted value
+      // console.log(event.target.value)
+      // set inputted value to name State
+      setNama(event.target.value);
+    }
+  }), /*#__PURE__*/React.createElement("button", {
+    type: "submit",
+    id: "submit"
+  }, "Submit")));
 }
 
 ReactDOM.render( /*#__PURE__*/React.createElement(App, null), root);
