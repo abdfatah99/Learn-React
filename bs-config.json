@@ -1,6 +1,5 @@
 {
-    "browser": "chrome",
-    "server": {
-        "baseDir": "./public"
-    }
+  "server": {
+    "baseDir": "./public"
+  }
 }
