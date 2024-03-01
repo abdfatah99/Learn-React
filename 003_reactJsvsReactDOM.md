@@ -85,14 +85,16 @@ type: "h1"
 The output is object literal. It's very different with the element that created
 using `vanilaJS -> document.createElement()`, it will produce DOM node.
 
+> The object literal is MOSTLY KNOWN as VIRTUAL DOM
+
 ```html
-// structure of 'hello world from javascript
+// structure of 'hello world' from javascript
 <h1 class="heading-1"></h1>
 ```
 
 ### React Object Result
 
-We can wee there a lot of internal property used by the internal `React`
+We can see there a lot of internal property used by the internal `React`
 
 -   `Typeof`: type of the creator of the element.
 -   `Props`: define the shape/look/term/**content**/className etc of the element.
@@ -107,3 +109,64 @@ it able to display in the window, you need to render the object literal using
 ```JavaScript
 ReactDOM.render(element, root);
 ```
+
+### Virtual DOM
+
+The output object from `React.createElement` : 
+
+```JavaScript
+Object { "$$typeof": Symbol("react.element"), type: "h1", key: null, ref: null, props: {…}, _owner: null, _store: {…}, … }
+​
+"$$typeof": Symbol("react.element")
+_owner: null
+_self: null
+_source: null
+_store: Object { … }
+key: null
+props: Object { children: "Hello world from react", className: "heading-1" }
+ref: null
+type: "h1"
+<prototype>: Object { … }
+```
+
+Is commonly referred as the "**Virtual DOM**". The main idea behind *Virtual DOM*
+is related to performance in the updating the actual DOM. 
+
+> Instead of directly Manipulating the Real DOM for every *State* change, React
+> creates a **lightweight, in-memory** Representation of the DOM called Virtual
+> DOM.
+
+When you create an HTML Element using `React.createElement`, the function actually
+create a vanila javascript object that mimic the actual DOM that you want to 
+create. For example the `type` of element `h1`, its `props` as `children` and
+the style as `className`.
+
+Example:
+
+```Javascript
+const element = React.createElement('h1', {
+    children: 'hello from React!',
+    className: 'heading-1',
+});
+```
+
+Output element object
+
+```JavaScript
+{
+  type: 'h1',
+  props: {
+    children: 'hello from React!',
+    className: 'heading-1',
+  },
+  key: null, // React uses this for reconciliation
+  ref: null, // Reference to the actual DOM node
+  _owner: null, // Used internally by React for managing ownership
+  _store: {}   // Used internally by React for managing context
+}
+```
+
+The generated object represent a virtual version of the `Element <h1>` with 
+specified properties. React will use this *Virtual DOM* to efficiently update 
+the actual DOM when needed, **Minimizing direct Real DOM manipulation for better
+performance**.
