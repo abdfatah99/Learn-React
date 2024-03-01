@@ -47,45 +47,69 @@ function buttonClick(stdIndentity) {
     alert(`congratulation, ${name} click the button`);
 }
 
-// =============================================================================
+// ======================= Adding Interactivity ================================
 
 function MainApp() {
     return (
-        <Toolbar
-            postMessage={() => alert("Posting a message")}
-            uploadImage={() => alert("Upload an image")}
-        ></Toolbar>
+        // <Toolbar
+        //     postMessage={() => alert("Posting a message")}
+        //     uploadImage={() => alert("Upload an image")}
+        // />
+        <div>Test</div>
     );
 }
 
 /**
  * Another example from Adding Interactivity
- * 
+ *
  * @param {ClickHandler} handler - The clik handler for Post Message
  * @param {ClickHandler} handler - The clik handler for Upload Image
- * @returns {JSX.Element}
  */
-function Toolbar({ postMessage, uploadImage }) {
+function Toolbar() {
     return (
         <>
-            <Button onClick={postMessage}>Post Message</Button>
-            <Button onClick={uploadImage}>Upload Image</Button>
+            {/* <Button>Post Message</Button>
+            <Button>Upload Image</Button> */}
+            <div>Test</div>
         </>
     );
 }
 
 /**
  * The button only receive and run the function of onClick handler.
+ * 
+ * Notes: 
+ * 1. This Button Component is a function
+ * 2. To be able to call this function component as a component, you need to 
+ *    invoke the function.
  *
  * @param {htmlOnClick} onClick - Click event handler
  * @returns {JSX.Element}
  */
-function Button({ onClick, children }) {
-    return <button onClick={onClick}>{children}</button>;
-}
+// function Button({ onClick, children }) {
+//     return (
+//         <button
+//         >
+//             {children}
+//             {console.log("testing")}
+//         </button>
+//     );
+// }
 
-const element = (
-    <button onClick={buttonClick.bind(this, "fatah")}>click Me</button>
-);
+/**
+ * Because i want to render all component:
+ * - handler function for JSX (using bind)
+ * - Add interactivity for component
+ *
+ * I have to use Fragment from react to make it able to render multiple
+ * component at the same time without wrapping it using another tag.
+ */
+// const ButtonHandlerBind = (
+//     <button onClick={buttonClick.bind(this, "fatah")}>Click Me</button>
+// );
+
+const element = React.createElement(React.Fragment, {
+    children: [MainApp],
+});
 
 ReactDOM.render(element, root);
