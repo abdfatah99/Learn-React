@@ -1,4 +1,4 @@
-const root = document.querySelector("#root");
+const root = ReactDOM.createRoot(document.querySelector("#root"));
 /**
  * in normal HTML, you can use an event like this
  * <button onclick="namaFunc()"></button>
@@ -44,11 +44,14 @@ const root = document.querySelector("#root");
 function buttonClick(stdIndentity) {
   let name = stdIndentity;
   alert(`congratulation, ${name} click the button`);
-}
+} // const ButtonHandlerBind = (
+//     <button onClick={buttonClick.bind(this, "fatah")}>Click Me</button>
+// );
 
-const ButtonHandlerBind = /*#__PURE__*/React.createElement("button", {
+
+const ButtonHandlerBind = React.createElement('button', {
   onClick: buttonClick.bind(this, "fatah")
-}, "Click Me"); // ======================= Adding Interactivity ================================
+}); // ======================= Adding Interactivity ================================
 // remember that this file using React.createElement() function to create element
 // you can't directory create Function Component
 // later you have to practice it using Function Component
@@ -64,7 +67,7 @@ const ButtonHandlerBind = /*#__PURE__*/React.createElement("button", {
  * 1. This Button Component is a function
  * 2. To be able to call this function component as a component, you need to
  *    invoke the function.
- * 
+ *
  * Functional component of Button
  * -> function Button({ onClick, children }){
  * ->   return (
@@ -80,22 +83,11 @@ const Button = ({
   onClick,
   children
 }) => React.createElement("button", {
-  onClick: onClick
-}, children); // const MainApp = React.createElement();
-
-
-function MainApp() {
-  // return (
-  //     // <Toolbar
-  //     //     postMessage={() => alert("Posting a message")}
-  //     //     uploadImage={() => alert("Upload an image")}
-  //     // />
-  // );
-  Toolbar({
-    postMesage: () => alert("Posting a message"),
-    uploadImage: () => alert("Upload an Image")
-  });
-}
+  onClick: onClick,
+  children: children
+} // or you can use the 3rd param of React.createElement as children
+// here you can type: children.
+);
 /**
  * Another example from Adding Interactivity
  *
@@ -114,14 +106,38 @@ function Toolbar({
   //         <Button onClick={uploadImage}>Upload Image</Button>
   //     </>
   // );
-  return React.createElement(React.Fragment, {}, Button({
+  return React.createElement(React.Fragment, {}, // Button({ onClick: postMessage, children: "Post Message" }),
+  // Button({ onClick: uploadImage, children: "Upload Image" }),
+  React.createElement(Button, {
     onClick: postMessage,
     children: "Post Message"
-  }), Button({
+  }), React.createElement(Button, {
     onClick: uploadImage,
     children: "Upload Image"
   }));
-}
+} // MainApp functional component
+// function MainApp() {
+//     // return (
+//     //     <Toolbar
+//     //         postMessage={() => alert("Posting a message")}
+//     //         uploadImage={() => alert("Upload an image")}
+//     //     />
+//     // );
+//     // Toolbar({
+//     //     postMesage: () => alert("Posting a message"),
+//     //     uploadImage: () => alert("Upload an Image"),
+//     // });
+//     return React.createElement(Toolbar, {
+//         postMesage: () => alert("Posting a message"),
+//         uploadImage: () => alert("Upload an Image"),
+//     });
+// }
+
+
+const MainApp = React.createElement(Toolbar, {
+  postMessage: () => alert("Posting a message"),
+  uploadImage: () => alert("Upload an Image")
+});
 /**
  * Because i want to render all component:
  * - handler function for JSX (using bind)
@@ -131,8 +147,22 @@ function Toolbar({
  * component at the same time without wrapping it using another tag.
  */
 
-
-const element = React.createElement(React.Fragment, {
-  children: [ButtonHandlerBind]
+const element = React.createElement("div", {
+  children: [// try to give the list a key, but still error
+  // the current idea of it is from ChatGPT
+  // React.createElement(ButtonHandlerBind, { key: "handler-bind" }),
+  // React.createElement(Button, {
+  //     key: 'button-submit',
+  //     onClick: () => console.log("hello world"),
+  //     children: "Button Submit",
+  // }),
+  React.createElement(ButtonHandlerBind, {
+    key: 1
+  }) // Button({
+  //     onClick: () => console.log("hello world "),
+  //     children: "Submit Name",
+  // }),
+  // React.createElement(MainApp, {}, 2),
+  ]
 });
-ReactDOM.render(element, root);
+root.render(element);
