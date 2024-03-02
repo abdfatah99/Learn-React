@@ -1,10 +1,16 @@
 body {
     background-color: black;
     margin: 0;
+    color: white;
 }
 
 .box {
     width: 200px;
     height: 200px;
     background-color: white;
+}
+
+#submit {
+    display: block;
+    margin-top: 5px;
 }

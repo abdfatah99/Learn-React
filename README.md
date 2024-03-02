@@ -1,4 +1,5 @@
 # Learn React
+This is my personal note for learning ReactJS
 
 branch explanation
 * main &rarr; current code of learning process
