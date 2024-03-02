@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--create root of the element  -->
+    <div id="root"></div> 
+    
+    <!-- import the library -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script></body>
+ 
+    <script>
+        const root = document.querySelector('#root')
+
+        /*
+            in this step we want to try to make 2 paragraph
+            i.e
+            <p> selamat datang </p>
+            <p> di indonesia </p>
+
+            we see that create to paragraph (element) using bare HTML is quite 
+            simple. if you try to create two element using react with approach 
+            like above example, you'll find problem
+
+            const greeting = React.createElement('p', {
+                children: "selamat datang"
+            });
+
+            const location = React.createElement('p', {
+                children: "di indonesia"
+
+            });
+
+            you can't add two element to the ReactDOM render, because ReactDOM 
+            render only takes one element
+            ReactDOM.Render(element, root)
+
+            how you solve this problem? 
+            
+            we have to wrap the two element with one element root.
+            to get sense of this solution, we back to the HTML simulation
+            <div>
+                <p> selamat datang </p>
+                <p> di indonesia </p>
+            </div>
+
+        */ 
+
+        // create the first element -> p1
+        const p1 = React.createElement('p', {
+            children: "hello world from paragraph 1"
+        });
+
+        // create the second paragraph
+        const p2 = React.createElement('p', {
+            children: "paragraph 2, introduction: my name is fatah"
+        });
+
+        // create the wrapper element
+        // we can create wrapper using div, that become:
+        //      -> React.createElement('div', {
+        //      ->     children: [p1, p2]
+        //      -> })
+        // but with this approach, it will create new element
+        // <div>
+        //      <p>...</p>
+        //      <p>...</p>
+        // </div>
+
+        // what if we just want to create the element inside the HTML 
+        // without wrapper element?
+        // i.e 
+        //      <p>...</p>
+        //      <p>...</p> 
+
+        // the answer is using fragment
+
+        const element = React.createElement(React.Fragment, {
+            
+            // instead of you only pass the content to children,
+            // you can also pass multiple element or content to the children
+            //      -> creating list of element as children
+            // ex. 
+            // children: ["hello", "world"] -> helloworld
+
+            // add multipel content to the children
+            children: [p1, p2]
+        });
+    
+        /** Fragment example in React
+         * 
+         * class Columns extends React.Component {
+         *   render() {
+         *      return (
+         *          <>        
+         *              <td>Hello</td>
+         *              <td>World</td>
+         *          </>    
+         *      );
+         *    }
+         * }
+        */
+
+        ReactDOM.render(element, root)
+
+    </script>
+</body>
+</html>

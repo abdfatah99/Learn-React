@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script
+            crossorigin
+            src="https://unpkg.com/react@18/umd/react.development.js"
+        ></script>
+        <script
+            crossorigin
+            src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+        ></script>
+
+        <!-- let's create multiple element in the react -->
+        <script>
+            const root = document.querySelector("#root");
+
+            const desc = React.createElement("p", {
+                children: "This element is created using children list",
+            });
+
+            const nama = React.createElement("li", {
+                children: "Abdul Fatah",
+            });
+
+            const nim = React.createElement("li", {
+                children: "1803015235",
+            });
+
+            const major = React.createElement("li", {
+                children: "Computer Science",
+            });
+
+            // display using children list
+            const mhsDisplay = React.createElement("ul", {
+                children: [desc, nama, nim, major],
+            });
+
+            /**
+             * -> React.createElement(firstParam, secondParam, ..., n_thParam) 
+             * - firstParam: HTML tag
+             * - sedondParam: HTML property
+             * 
+             * display using third (or n) parameter -> just give the content of 
+             * the element
+             * second parameter could be 'empty' {} or null -> doesn't have any 
+             * properties or you just want to add the className only
+             * 
+             * so the actual structure is like this
+             * 
+             * ->  property = { 
+             * ->       children: "HTML content", 
+             * ->       className: "class of HTML tag"
+             * ->  }
+             * ->  createElement(HTMLtag, property, *content)
+             * 
+             * `*content` mean rest of the parameter would be consider as 
+             * content (children) of the element
+
+            */
+            const mhsDisplay3rd = React.createElement(
+                "ul",
+                {},
+                "hello from thrid param" // this is the content of the element
+            );
+
+            // you can add another content from third param and above
+            const mhsDisplay3rdUl = React.createElement(
+                "ul",
+                { className: "list" },
+                "hello",
+                " from",
+                " third 5th param (3rd param list)"
+            );
+
+            // add nama, nim, major directly to parent element using third and n-th param
+            const mhsDisplay3rdnParam = React.createElement(
+                "ul",
+                { className: "list-mhs" },
+                React.createElement(
+                    "p",
+                    null,
+                    "This display is created using n-st Param element"
+                ),
+                nama,
+                React.createElement("li", null, "1803015235"),
+                React.createElement("li", null, "Computer Science")
+            );
+
+            // practice li inside ul
+            const fruitsList = React.createElement(
+                "div",
+                { className: "list-fruits" },
+                React.createElement("p", null, "Fruits list"),
+                React.createElement(
+                    "ul",
+                    null,
+                    React.createElement("li", null, "Apple"),
+                    React.createElement("li", null, "Orange"),
+                    React.createElement("li", null, "Grape")
+                )
+            );
+
+            // display using children list
+            // ReactDOM.render(mhsDisplay, root);
+
+            // display using 3rd parameter (list)
+            // ReactDOM.render(mhsDisplay3rdUl, root);
+
+            // display using react element at 3rd++ parameter
+            // console.log(mhsDisplay3rdnParam)
+            // ReactDOM.render(mhsDisplay3rdnParam, root)
+
+            // display li inside ul
+            ReactDOM.render(fruitsList, root);
+        </script>
+    </body>
+</html>

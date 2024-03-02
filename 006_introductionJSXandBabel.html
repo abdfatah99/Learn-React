@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+    <div id="root"></div>
+    <p>This element is created by normal HTML tag</p>
+
+    <!-- import react library, you access it from the original website -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- import babel to transpile jsx to dom -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- write  -->
+    <script type="text/babel">
+        const root = document.querySelector("#root");
+
+        const descripsiBuah = "Fruit can give you much vitamin that beneficial to you body"
+        const element = (
+            // using normal React Element
+            // 'ul',
+            // { className: 'list' },
+            // React.createElement('li', null, 'Apple'),
+            // React.createElement('li', null, 'Orange'),
+            // React.createElement('li', null, 'Grape')
+
+            // using babel
+            // don't forget to add type='text/babel' at script tag
+            <div>
+                <ul>
+                    <li>Apple</li>
+                    <li>Orange</li>
+                    <li>Grape</li>
+                </ul>
+    
+                <p>Deskription: { descripsiBuah }</p>    
+            </div>
+           
+        );
+
+        ReactDOM.render(element, root);
+
+    </script>
+</body>
+</html>

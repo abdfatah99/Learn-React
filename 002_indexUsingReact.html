@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <!-- import react library, you access it from the original website -->
+        <script
+            crossorigin
+            src="https://unpkg.com/react@18/umd/react.development.js"
+        ></script>
+        <script
+            crossorigin
+            src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+        ></script>
+    </body>
+
+    <!-- write the React actual code -->
+    <script>
+        /**
+         * // create element using vanila js
+         * -> const root = document.querySelector('#root')
+         * -> const element = document.createElement('h1')
+         * -> element.textContent = 'create element using vanila js'
+         * -> element.className = 'header-1'
+         * -> root.appendChild(element)
+         * 
+         */ 
+
+        // =================== Create Element Using React ======================
+
+
+        // access the HTML element
+        const root = document.querySelector("#root");
+
+        // create the element
+        const element = React.createElement("h1", {
+            // create content of the tag
+
+            /** 1. Create content of the tag
+             *  2. Understanding Children
+             *
+             * if you create an html element, you'll end up with
+             * <tagName> content </closeTagName>
+             *
+             * example
+             * <h1>Hello world from react</h1>
+             *
+             * but if you are using React, the structure would like this
+             * <tagName>{children}</closeTagName>
+             *
+             * so, Children is Content of the element.
+             */
+            children: "Hello world from react",
+
+            // class name of the tag
+            className: "heading-1",
+        });
+
+        console.log(element);
+
+        // inject the element
+        // render(element, target)
+        //  - element: React element that we want to insert to the HTML element
+        //  - target: HTML element that we want to inject
+        ReactDOM.render(element, root);
+    </script>
+</html>
