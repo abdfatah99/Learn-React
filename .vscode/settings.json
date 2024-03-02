@@ -1,3 +1,6 @@
 {
-    "liveServer.settings.port": 3003
+    "liveServer.settings.port": 3003,
+    "editor.tokenColorCustomizations": {
+        "comments": "#6bddb7"
+    }
 }
