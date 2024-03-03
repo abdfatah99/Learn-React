@@ -9,3 +9,8 @@ body {
     height: 200px;
     background-color: white;
 }
+
+#submit {
+    display: block;
+    margin-top: 5px;
+}
