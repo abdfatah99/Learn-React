@@ -117,9 +117,6 @@ function App() {
                 <button onClick={function(){
                     updateCount(count - 1)
                 }}>-</button>
-
-
-
             */}
             <button onClick={function(){
                 updateCount(count - 1)
