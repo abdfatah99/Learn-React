@@ -1,255 +1,247 @@
 const root = ReactDOM.createRoot(document.querySelector("#root"));
-/**
- * in normal HTML, you can use an event like this
- * <button onclick="namaFunc()"></button>
- *
- * what make different?
- * HTML -> lowercase -> onclick="funcName()"
- * React -> camelCase -> onClick={functionName}
- *                               -> not using string ""
- *                               -> using curly brackets,
- *                               -> this because we call js function
- *
- * when you insert the functionName to the react element, you don't
- * need to use parentheses, because using parentheses would execute
- * the function immediately when you load the page, you don't want this.
- * You just want to execute the function if the function is called
- * using button
- *
- * !THE PROBLEM
- * What if we want to give an argument to the function?
- * 1. using function
- *      <button onClick={function() {
- *              functionNames("argument")
- *          }
- *      }>
- *      click me
- *      </button>
- *
- * 2. using bind
- *      <button onClick={functionNames.bind(this, "argument")}>
- *          click me
- *      </button>
- *
- *    if you console the -functionNames.bind(this, 'argument')-
- *    it will create/produce new function with that argument
- *    this keyword is used to reference the function (functionNames)
- *
- * recap
- *  1. define the event name
- *  2. define the value -> function, you can abstraction the function,
- *                         or you can call immediately
- */
-
-function buttonClick(stdIndentity) {
-  let name = stdIndentity;
-  alert(`congratulation, ${name} click the button`);
-} // const ButtonHandlerBind = (
-//     <button onClick={buttonClick.bind(this, "fatah")}>Click Me</button>
-// );
 
 
-const ButtonHandlerBind = React.createElement('button', {
-  onClick: buttonClick.bind(this, "fatah")
-}); // ======================= Adding Interactivity ================================
-// remember that this file using React.createElement() function to create element
-// you can't directory create Function Component
-// later you have to practice it using Function Component
-// list of component that you have to create
-// 1. Button { element: <button>, children: { children }}
-// 2. Toolbar { element: Fragment { children: [Button, Button] } }
-// 3. MainApp { element: Toolbar}
 
 /**
- * The button only receive and run the function of onClick handler.
+ * REACT USE EFFECT
+ * 
+ * code: React.useEffect()
+ * - useEffect function will executed while the component is rendered.
+ * 
+ *=> function App() {
+ *=>   React.useEffect(function () {
+ *=>       console.log("rendered")
+ *=>       console.log(document.getElementById("title"))
+ *=>    })
+ *=>    
+ *=>    return <h1 id="title">Hello this is title</h1>
+ *=> }
  *
- * Notes:
- * 1. This Button Component is a function
- * 2. To be able to call this function component as a component, you need to
- *    invoke the function.
- *
- * Functional component of Button
- * -> function Button({ onClick, children }){
- * ->   return (
- * ->       <button onClick={onClick}>{children}</button>
- * ->   )
- * -> }
- *
- * @param {htmlOnClick} onClick - Click event handler
- * @returns {JSX.Element}
+ * even we delay set the rendered function, we can still access the element
+ * 
+ *=> setTimeout(function (){
+ *=>    ReactDOM.render(<App />, root)
+ *=> }, 1000)
  */
-
-const Button = ({
-  onClick,
-  children
-}) => React.createElement("button", {
-  onClick: onClick,
-  children: children
-} // or you can use the 3rd param of React.createElement as children
-// here you can type: children.
-);
-/**
- * Another example from Adding Interactivity
- *
- * @param {ClickHandler} handler - The clik handler for Post Message
- * @param {ClickHandler} handler - The clik handler for Upload Image
- */
-
-
-function Toolbar({
-  postMessage,
-  uploadImage
-}) {
-  // return (
-  //     <>
-  //         <Button onClick={postMessage}>Post Message</Button>
-  //         <Button onClick={uploadImage}>Upload Image</Button>
-  //     </>
-  // );
-  return React.createElement(React.Fragment, {}, // Button({ onClick: postMessage, children: "Post Message" }),
-  // Button({ onClick: uploadImage, children: "Upload Image" }),
-  React.createElement(Button, {
-    onClick: postMessage,
-    children: "Post Message"
-  }), React.createElement(Button, {
-    onClick: uploadImage,
-    children: "Upload Image"
-  }));
-} // MainApp functional component
-// function MainApp() {
-//     // return (
-//     //     <Toolbar
-//     //         postMessage={() => alert("Posting a message")}
-//     //         uploadImage={() => alert("Upload an image")}
-//     //     />
-//     // );
-//     // Toolbar({
-//     //     postMesage: () => alert("Posting a message"),
-//     //     uploadImage: () => alert("Upload an Image"),
-//     // });
-//     return React.createElement(Toolbar, {
-//         postMesage: () => alert("Posting a message"),
-//         uploadImage: () => alert("Upload an Image"),
-//     });
-// }
-
-
-const MainApp = React.createElement(Toolbar, {
-  postMessage: () => alert("Posting a message"),
-  uploadImage: () => alert("Upload an Image")
-});
-/**
- * Because i want to render all component:
- * - handler function for JSX (using bind)
- * - Add interactivity for component
- *
- * I have to use Fragment from react to make it able to render multiple
- * component at the same time without wrapping it using another tag.
- */
-
-const element = React.createElement("div", {
-  children: [// try to give the list a key, but still error
-  // the current idea of it is from ChatGPT
-  // React.createElement(ButtonHandlerBind, { key: "handler-bind" }),
-  // React.createElement(Button, {
-  //     key: 'button-submit',
-  //     onClick: () => console.log("hello world"),
-  //     children: "Button Submit",
-  // }),
-  React.createElement(ButtonHandlerBind, {
-    key: 1
-  }) // Button({
-  //     onClick: () => console.log("hello world "),
-  //     children: "Submit Name",
-  // }),
-  // React.createElement(MainApp, {}, 2),
-  ]
-});
-root.render(element);
-=======
- * create react form like normal form
- */
-// function App(){
-//   function ketikadisubmit(event){
-//      # stop default html behaviour
-//     event.preventDefault()
-//      # check if the function is run
-//     console.log("the button clicked")
-//   }
-//   return(
-//     <form onSubmit={ketikadisubmit}>
-//       <div>
-//         <label>Nama: </label>
-//         <input type="text" name="nama" />
-//       </div>
-//       <button type="submit">Submit</button>
-//     </form>
-//   )
-// }
 
 /**
- * How to get data from the form-input element into the console
- * This way below is called UNCONTROL way, because we use js vanila to
- * manipulate (get) the data (just reference it, actually we can use
- * getElementById if you want to use this term )
+ * RE-EXECUTE useEffect WHILE a state is change
+ * 
+ * the thing that you have to keep in mind is when you re-render (for example
+ * there's a change in the state) the component, this function will also 
+ * re-execute.
+ * 
+ * for example you have a button that change a state
+ * 
+ * then you can check in the console that the function (useEffect) is
+ * re-excuted
+ *
+
+ *=> function App() {
+ *=>   const [clicked, setClicked] = React.useState(false)
+ *=>   console.log(clicked)
+
+ *=>   React.useEffect(function() {
+ *=>       console.log(document.getElementById("title"))
+ *=>   })
+ *=>   
+ *=>   return (
+ *=>       <>
+ *=>           <h1 id="title">Hello this is Title</h1>
+ *=>           <button
+ *=>               onClick={function() {
+ *=>                   setClicked(true)
+ *=>               }}
+ *=>           >Click Me!</button>
+ *=>       </>
+ *=>   )
+ *=> }
+ *
+ * keep in mind that React.useEffect is watch all state, the case above is just
+ * one state (clicked).
  */
-// function App(){
-//   const namaRef = React.useRef(null)
-//   function onSubmitFunc(event){
-//     event.preventDefault()
-//     console.log('the button is clicked')
-//     console.log("namaRef:", namaRef)
-//     const nama = namaRef.current.value
-//     console.log("nama:", nama)
-//   }
-//   return (
-//     <form onSubmit={onSubmitFunc}>
-//       <div>
-//         <label htmlFor='name'>Nama: </label>
-//         <input type="text" name='name' id='name' ref={namaRef}/>
-//       </div>
-//       <button>Submit</button>
-//    </form>
-//   )
-// }
 
 /**
- * CONTROL WAY of form
- *  - using state
+ * SECOND ARGUMENT OF USE EFFECT
+ * 
+ * the second argument of useEffect is used to watch certain state.
+ * so the useEffect only executed while the defined state is change
+ * 
  *
- * the input element is contolled by react via state
+
+ *=> function App() {
+ *=>   const [count, setCount] = React.useState(0)
+ *=>   const [clicked, setclicked] = React.useState(false)
+
+ *=>   // if you don't add the second argument of the useEffect. 
+ *=>   // useEffect would executed if all state is change.
+ *=>   // in this example we just want to watch clicked state.
+ *=>   // if you change count state, it wouldn't do anything.
+
+ * note: component would be re-rendered if a state is change
+
+ *=>   React.useEffect(function() {
+ *=>       console.log("execute useEffect, also if you click Click me button");
+ *=>       console.log(document.getElementById("title"))
+ *=>   }, [clicked]) // you can also add another state to watch
+ *=>                 // [state1, state2, ..., stateN]
+
+ *=>   return (
+ *=>       <>
+ *=>       <h1 id="title">This is title</h1>
+ *=>       <button
+ *=>           onClick={function() {
+ *=>               setclicked(true)
+ *=>           }}
+ *=>       >Click Me</button>
+ *=>       <button
+ *=>           onClick={function() {
+ *=>               setCount(count + 1)
+ *=>           }}
+ *=>       >Tambah</button>
+ *=>       <span>Nilai sekarang: {count} </span>
+ *=>       </>
+ *=>   )
+ *=>   
+ *=> }
  *
+ * 
+ * if you just add an empty array at the second argument, it just unwatch all
+ * state that change, just execute the useEffect at the first time
+ * 
+ *=>    React.useEffect(function() {}, [])
+ * 
+ * this mechanisme is really handy if you do a data fetching
  */
+
+/**
+ * INFO
+ * - using useEffect could be your indicator to the component if the componet
+ *   is already rendered or not.
+ * - using useEffect also can be use to fetch data
+ * - using useEffect also can be use to initialize a module or library
+ *   
+ *   if we already know that the component is already rendered, we can track
+ *   our code of using the library. 
+ *   we need initialization once at the beginning, it's handy using an empty
+ *   array at the second argument.
+ * 
+ * PROBLEM WITH INITIALIZE A LIBRARY
+ *
+ * if you already initialize a library at the first time, the library
+ * is saved in the memory. But, when you change or move to another component 
+ * (another page) then you go back to this component, the instance from this
+ * library (library that the first time you initialize) would still in the 
+ * memory. THE LIBRARY IS STILL ALIVE AND NOT DELETED.
+ * 
+ * HOW TO SOLVE THE PROBLEM? (clean up or destroy)
+ * some library has thier own method to clean up or destroy thier instance, 
+ * to execute destroying the instance, we can call that function or method
+ * while the component is un-mount. 
+ * 
+ * mount    : component rendered (at the first time) into DOM tree
+ * un-mount : component deleted from the DOM tree
+ * 
+ * to do this, just call in the return expression
+ * 
+ * example
+ * 
+ *=> React.useEffect(function() {
+ *=>    console.log('init carousel')
+ *=>    
+ *=>    return function () { // this function will executed while the component
+ *=>                         // is deleted from DOM tree (un-mount)
+ *=>                         // or while the component is re-render (state change)
+ *=>          console.log('destroy carousel')
+ *=>    }
+ *=> }, [])
+ *
+ * when you go back to this component, the library will start to re-initialize
+ * like at the first time.
+ * 
+ */
+
+// src: https://www.youtube.com/watch?v=iftKirX0kD8
 
 function App() {
-  // create state to store the inputted value
-  const [nama, setNama] = React.useState(""); // default value is empty string
-
-  function submitForm(event) {
-    event.preventDefault();
-    console.log(event.target);
-    console.log(`Submitted name: ${nama}`);
-  }
-
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("form", {
-    onSubmit: submitForm
-  }, /*#__PURE__*/React.createElement("label", {
-    htmlFor: ""
-  }, "Nama"), /*#__PURE__*/React.createElement("input", {
-    type: "text",
-    name: "nama" // default nama State is empty sting, we controll the input by state
-    ,
-    value: nama,
-    onChange: function (event) {
-      // check inputted value
-      // console.log(event.target.value)
-      // set inputted value to name State
-      setNama(event.target.value);
+  const [showComponent, setShowComponent] = React.useState(false);
+  const [mountingStatus, setMountingStatus] = React.useState(true);
+  return /*#__PURE__*/React.createElement("div", {
+    className: "text-center"
+  }, /*#__PURE__*/React.createElement("h3", {
+    className: ""
+  }, "Applying return statement of useEffect (Component lifecycle)"), /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-success",
+    onClick: () => {
+      setShowComponent(prev => !prev);
     }
-  }), /*#__PURE__*/React.createElement("button", {
-    type: "submit",
-    id: "submit"
-  }, "Submit")));
+  }, "Toggle Component"), showComponent && /*#__PURE__*/React.createElement(SayComponent, null), /*#__PURE__*/React.createElement(TestingMounting, null), /*#__PURE__*/React.createElement("h1", null, "Implementation of Functional component lifecycle"), mountingStatus ? /*#__PURE__*/React.createElement(MyComponent, null) : "", /*#__PURE__*/React.createElement("button", {
+    onClick: () => {
+      setMountingStatus(!mountingStatus);
+    }
+  }, "Remove Mounting Component"));
 }
+const SayComponent = () => {
+  React.useEffect(() => {
+    console.log("Mount, Text 'hey' appear");
+    return () => {
+      console.log("unMount, Text 'hey' dissappear");
+    };
+  }, []);
+  return /*#__PURE__*/React.createElement("h2", null, "Hey");
+};
 
-ReactDOM.render( /*#__PURE__*/React.createElement(App, null), root);
+// testing which run first, useEffect or return statement first
+const TestingMounting = () => {
+  const [time, setTime] = React.useState(new Date().getTime());
+
+  /** When useEffect invoked?
+   * `componentDidMount()` function executed after the component mounted into
+   * the DOM.
+   *
+   * `useEffect(callback, dependency)` has a callback function that will be
+   * executed after the component mounted.
+   */
+  React.useEffect(() => {
+    // so this callback function will be executed after the component mounted
+    // into the DOM. Which mean that the code after return will be executed first
+    // then callback function will be executed.
+    const currentTimestampUseEffect = new Date().getTime();
+    console.log(currentTimestampUseEffect);
+  });
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h3", null, "Testing Which function executed, useEffect (console) or Return (below) first:"), /*#__PURE__*/React.createElement("p", null, new Date().getTime()), /*#__PURE__*/React.createElement("p", null, "Time from state ", time));
+};
+function MyComponent() {
+  // Mounting phase
+  React.useEffect(() => {
+    console.log("MyComponent Status (1): Component mounted");
+
+    // Unmounting phase (cleanup function)
+    return () => {
+      console.log("MyComponent Status (1): Component will unmount (whole component) \n", "This return () function executed right before the component leave DOM");
+    };
+  }, []); // Empty dependency array for mounting phase only
+
+  // Updating phase
+  const [count, setCount] = React.useState(0);
+
+  // check update status
+  const [update, setUpdate] = React.useState(0);
+  React.useEffect(() => {
+    console.log("Mycomponent Status (2): Mounted");
+    if (update > 0) {
+      // Code to run on every update
+      console.log("MyComponent Status (2): Component updated");
+    }
+    return () => {
+      console.log("MyComponent Status (2): Cleanup on update (un mount)");
+    };
+  }, [count]);
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", null, count), /*#__PURE__*/React.createElement("button", {
+    onClick: () => {
+      setCount(count + 1);
+      setUpdate(update + 1);
+    }
+  }, "Increment"));
+}
+root.render( /*#__PURE__*/React.createElement(App, null));
