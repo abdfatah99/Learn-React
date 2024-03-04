@@ -1,4 +1,5 @@
-const root = document.querySelector("#root");
+const root = ReactDOM.createRoot(document.querySelector("#root"));
+
 /**
  * BASIC COMPONENT lifeCycle
  * Component lifecycle: allow us to execute a function and the execution 
@@ -115,9 +116,7 @@ const root = document.querySelector("#root");
  * 
  * the second argument of useEffect is used to watch certain state.
  * so the useEffect only executed while the defined state is change
- * 
- *
-
+  
  *=> function App() {
  *=>   const [count, setCount] = React.useState(0)
  *=>   const [clicked, setclicked] = React.useState(false)
@@ -209,10 +208,12 @@ const root = document.querySelector("#root");
  * like at the first time.
  *
  */
+
 // src: https://www.youtube.com/watch?v=iftKirX0kD8
 
 function App() {
   const [showComponent, setShowComponent] = React.useState(false);
+  const [mountingStatus, setMountingStatus] = React.useState(true);
   return /*#__PURE__*/React.createElement("div", {
     className: "text-center"
   }, /*#__PURE__*/React.createElement("h3", {
@@ -222,9 +223,12 @@ function App() {
     onClick: () => {
       setShowComponent(prev => !prev);
     }
-  }, "Toggle Component"), showComponent && /*#__PURE__*/React.createElement(SayComponent, null));
+  }, "Toggle Component"), showComponent && /*#__PURE__*/React.createElement(SayComponent, null), /*#__PURE__*/React.createElement(TestingMounting, null), /*#__PURE__*/React.createElement("h1", null, "Implementation of Functional component lifecycle"), mountingStatus ? /*#__PURE__*/React.createElement(MyComponent, null) : "", /*#__PURE__*/React.createElement("button", {
+    onClick: () => {
+      setMountingStatus(!mountingStatus);
+    }
+  }, "Remove Mounting Component"));
 }
-
 const SayComponent = () => {
   React.useEffect(() => {
     console.log("Mount, Text 'hey' appear");
@@ -235,4 +239,57 @@ const SayComponent = () => {
   return /*#__PURE__*/React.createElement("h2", null, "Hey");
 };
 
-ReactDOM.render( /*#__PURE__*/React.createElement(App, null), root);
+// testing which run first, useEffect or return statement first
+const TestingMounting = () => {
+  const [time, setTime] = React.useState(new Date().getTime());
+
+  /** When useEffect invoked?
+   * `componentDidMount()` function executed after the component mounted into
+   * the DOM.
+   *
+   * `useEffect(callback, dependency)` has a callback function that will be
+   * executed after the component mounted.
+   */
+  React.useEffect(() => {
+    // so this callback function will be executed after the component mounted
+    // into the DOM. Which mean that the code after return will be executed first
+    // then callback function will be executed.
+    const currentTimestampUseEffect = new Date().getTime();
+    console.log(currentTimestampUseEffect);
+  });
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h3", null, "Testing Which function executed, useEffect (console) or Return (below) first:"), /*#__PURE__*/React.createElement("p", null, new Date().getTime()), /*#__PURE__*/React.createElement("p", null, "Time from state ", time));
+};
+function MyComponent() {
+  // Mounting phase
+  React.useEffect(() => {
+    console.log("MyComponent Status (1): Component mounted");
+
+    // Unmounting phase (cleanup function)
+    return () => {
+      console.log("MyComponent Status (1): Component will unmount (whole component) \n", "This return () function executed right before the component leave DOM");
+    };
+  }, []); // Empty dependency array for mounting phase only
+
+  // Updating phase
+  const [count, setCount] = React.useState(0);
+
+  // check update status
+  const [update, setUpdate] = React.useState(0);
+  React.useEffect(() => {
+    console.log("Mycomponent Status (2): Mounted");
+    if (update > 0) {
+      // Code to run on every update
+      console.log("MyComponent Status (2): Component updated");
+    }
+    return () => {
+      console.log("MyComponent Status (2): Cleanup on update (un mount)");
+    };
+  }, [count]);
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", null, count), /*#__PURE__*/React.createElement("button", {
+    onClick: () => {
+      setCount(count + 1);
+      setUpdate(update + 1);
+    }
+  }, "Increment"));
+}
+root.render( /*#__PURE__*/React.createElement(App, null));

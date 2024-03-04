@@ -14,5 +14,8 @@
     "scripts": {
         "build": "babel src --out-dir public -w",
         "server": "lite-server --baseDir public --c bs-config.json"
+    },
+    "devDependencies": {
+        "prettier": "^3.2.5"
     }
 }

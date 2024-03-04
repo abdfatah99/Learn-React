@@ -1,4 +1,4 @@
-const root = document.querySelector("#root");
+const root = ReactDOM.createRoot(document.querySelector("#root"));
 
 /**
  * BASIC COMPONENT lifeCycle
@@ -116,9 +116,7 @@ const root = document.querySelector("#root");
  * 
  * the second argument of useEffect is used to watch certain state.
  * so the useEffect only executed while the defined state is change
- * 
- *
-
+  
  *=> function App() {
  *=>   const [count, setCount] = React.useState(0)
  *=>   const [clicked, setclicked] = React.useState(false)
@@ -215,6 +213,7 @@ const root = document.querySelector("#root");
 
 function App() {
   const [showComponent, setShowComponent] = React.useState(false);
+  const [mountingStatus, setMountingStatus] = React.useState(true);
 
   return (
     <div className="text-center">
@@ -230,20 +229,109 @@ function App() {
         Toggle Component
       </button>
       {showComponent && <SayComponent />}
+      {<TestingMounting />}
+      <h1>Implementation of Functional component lifecycle</h1>
+      {mountingStatus ? <MyComponent /> : ""}
+      <button
+        onClick={() => {
+          setMountingStatus(!mountingStatus);
+        }}
+      >
+        Remove Mounting Component
+      </button>
     </div>
   );
 }
 
 const SayComponent = () => {
   React.useEffect(() => {
-    console.log("Mount, Text 'hey' appear")
-  
+    console.log("Mount, Text 'hey' appear");
+
     return () => {
-      console.log("unMount, Text 'hey' dissappear")
+      console.log("unMount, Text 'hey' dissappear");
+    };
+  }, []);
+
+  return <h2>Hey</h2>;
+};
+
+// testing which run first, useEffect or return statement first
+const TestingMounting = () => {
+  const [time, setTime] = React.useState(new Date().getTime());
+
+  /** When useEffect invoked?
+   * `componentDidMount()` function executed after the component mounted into
+   * the DOM.
+   *
+   * `useEffect(callback, dependency)` has a callback function that will be
+   * executed after the component mounted.
+   */
+  React.useEffect(() => {
+    // so this callback function will be executed after the component mounted
+    // into the DOM. Which mean that the code after return will be executed first
+    // then callback function will be executed.
+    const currentTimestampUseEffect = new Date().getTime();
+    console.log(currentTimestampUseEffect);
+  });
+
+  return (
+    <>
+      <h3>
+        Testing Which function executed, useEffect (console) or Return (below)
+        first:
+      </h3>
+      <p>{new Date().getTime()}</p>
+      <p>Time from state {time}</p>
+    </>
+  );
+};
+
+function MyComponent() {
+  // Mounting phase
+  React.useEffect(() => {
+    console.log("MyComponent Status (1): Component mounted");
+
+    // Unmounting phase (cleanup function)
+    return () => {
+      console.log(
+        "MyComponent Status (1): Component will unmount (whole component) \n",
+        "This return () function executed right before the component leave DOM",
+      );
+    };
+  }, []); // Empty dependency array for mounting phase only
+
+  // Updating phase
+  const [count, setCount] = React.useState(0);
+
+  // check update status
+  const [update, setUpdate] = React.useState(0);
+
+  React.useEffect(() => {
+    console.log("Mycomponent Status (2): Mounted");
+
+    if (update > 0) {
+      // Code to run on every update
+      console.log("MyComponent Status (2): Component updated");
     }
-  }, [])
-  
-  return <h2>Hey</h2>
+
+    return () => {
+      console.log("MyComponent Status (2): Cleanup on update (un mount)");
+    };
+  }, [count]);
+
+  return (
+    <div>
+      <p>{count}</p>
+      <button
+        onClick={() => {
+          setCount(count + 1);
+          setUpdate(update + 1);
+        }}
+      >
+        Increment
+      </button>
+    </div>
+  );
 }
 
-ReactDOM.render(<App />, root);
+root.render(<App />);
